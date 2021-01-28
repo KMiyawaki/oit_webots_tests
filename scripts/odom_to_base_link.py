@@ -3,7 +3,6 @@
 import os
 import rospy
 import tf
-from geometry_msgs.msg import Point, Pose, Pose2D, Quaternion, Twist, Vector3
 from nav_msgs.msg import Odometry
 
 

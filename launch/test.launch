@@ -2,6 +2,12 @@
   <arg name="robot_model" default="$(find oit_webots_tests)/urdf/microbot_01_base.xacro"/>
   <arg name="rviz_conf_path" default="$(find oit_webots_tests)/config/rviz/simple.rviz" />
   <arg name="rviz_required" default="true" />
+  <arg name="process_rate" default="10" />
+  <arg name="tread" default="0.381" />
+  <arg name="wheel_radius" default="$(eval 0.195/2)" />
+  <arg name="frame_id" default="odom" />
+  <arg name="child_frame_id" default="base_link" />
+
   <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg robot_model)" />
 
   <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" />
@@ -10,5 +16,17 @@
   </node>
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
   <node name="odom_to_base_link" pkg="oit_webots_tests" type="odom_to_base_link.py" />
+  <node name="webots_odometry_node" pkg="oit_webots_tests" type="webots_odometry_node.py" output="screen">
+    <param name="process_rate" value="$(arg process_rate)" />
+    <param name="tread" value="$(arg tread)" />
+    <param name="wheel_radius" value="$(arg wheel_radius)" />
+    <param name="frame_id" value="$(arg frame_id)" />
+    <param name="child_frame_id" value="$(arg child_frame_id)" />
+  </node>
+  <node name="webots_velocity_node" pkg="oit_webots_tests" type="webots_velocity_node.py" output="screen">
+    <param name="process_rate" value="$(arg process_rate)" />
+    <param name="tread" value="$(arg tread)" />
+    <param name="wheel_radius" value="$(arg wheel_radius)" />
+  </node>
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rviz_conf_path)" required="$(arg rviz_required)" />
 </launch>
