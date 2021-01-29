@@ -1,4 +1,5 @@
 <launch>
+  <arg name="protocol" default="ws" />
   <arg name="rviz_conf_file" default="mapping.rviz" />
   <arg name="xmin" default="-5"/>
   <arg name="xmax" default="5"/>
@@ -7,6 +8,7 @@
 
   <include file="$(find oit_webots_tests)/launch/simple.launch">
     <arg name="rviz_conf_file" value="$(arg rviz_conf_file)" />
+    <arg name="protocol" value="$(arg protocol)" />
   </include>
   <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
     <remap from="scan" to="base_scan" />
