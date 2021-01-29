@@ -38,21 +38,48 @@ $ git clone https://github.com/KMiyawaki/oit_webots_tests.git
 $ sudo apt install ros-melodic-rosbridge-suite
 ```
 
-## 起動
+## 起動(WebSocket)
 
 - WSL側で以下を実行する。
 
 ```shell
 $ roscd oit_webots_tests/launch
-$ roslaunch ./test.launch 
+$ roslaunch ./simple.launch protocol:=ws
 ```
 
 - `Rviz`と[mouse_teleop](https://github.com/ros-teleop/teleop_tools)が起動するが、何も表示されてはいない。
 
 ![2021-01-18_133745.png](./images/2021-01-18_133745.png)
 
-- Webotsを起動し、クローンしたワールドファイル`oit_webots\worlds\test_01_ros.wbt`を`File`->`Open World`から開く。
+- Webotsを起動し、クローンしたワールドファイル`oit_webots\worlds\test_01_ros_ws.wbt`を`File`->`Open World`から開く。
 - この段階でRViz上に`base_link`という座標軸（ロボットのホイールオドメトリによる自己位置）が出現し、`mouse_teleop`でロボットを操作できる。
     - Webots上のロボットも動く。
 
 ![2021-01-18_134016.png](./images/2021-01-18_134016.png)
+
+- ソフトを一旦終了しWSL側で以下を実行する。その後上記同様にWebotsの`oit_webots\worlds\test_01_ros_ws.wbt`を開いて実行する。ROS側でマウステレオペをすると地図作成ができる。
+
+```shell
+$ roscd oit_webots_tests/launch
+$ roslaunch ./mapping.launch protocol:=ws
+```
+
+## 起動(UDP)
+
+- WSL側で以下を実行する。
+
+```shell
+$ roscd oit_webots_tests/launch
+$ roslaunch ./simple.launch protocol:=udp
+```
+
+- Webotsを起動し、クローンしたワールドファイル`oit_webots\worlds\test_02_ros_udp.wbt`を`File`->`Open World`から開く。
+- この段階でRViz上に`base_link`という座標軸（ロボットのホイールオドメトリによる自己位置）が出現し、`mouse_teleop`でロボットを操作できる。
+    - Webots上のロボットも動く。
+
+- ソフトを一旦終了しWSL側で以下を実行する。その後上記同様にWebotsの`oit_webots\worlds\test_02_ros_udp.wbt`を開いて実行する。ROS側でマウステレオペをすると地図作成ができる。
+
+```shell
+$ roscd oit_webots_tests/launch
+$ roslaunch ./mapping.launch protocol:=udp
+```
