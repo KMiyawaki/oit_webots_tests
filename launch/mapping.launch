@@ -1,0 +1,18 @@
+<launch>
+  <arg name="rviz_conf_file" default="mapping.rviz" />
+  <arg name="xmin" default="-5"/>
+  <arg name="xmax" default="5"/>
+  <arg name="ymin" default="-5"/>
+  <arg name="ymax" default="5"/>
+
+  <include file="$(find oit_webots_tests)/launch/simple.launch">
+    <arg name="rviz_conf_file" value="$(arg rviz_conf_file)" />
+  </include>
+  <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
+    <remap from="scan" to="base_scan" />
+    <param name="xmin" value="$(arg xmin)" />
+    <param name="xmax" value="$(arg xmax)" />
+    <param name="ymin" value="$(arg ymin)" />
+    <param name="ymax" value="$(arg ymax)" />
+  </node>
+</launch>
