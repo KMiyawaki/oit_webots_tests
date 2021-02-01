@@ -1,5 +1,5 @@
 <launch>
-  <arg name="protocol" default="ws" />
+  <arg name="protocol" default="tcp" />
   <arg name="rviz_conf_file" default="mapping.rviz" />
   <arg name="xmin" default="-5"/>
   <arg name="xmax" default="5"/>
