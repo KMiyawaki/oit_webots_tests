@@ -38,7 +38,7 @@ $ git clone https://github.com/KMiyawaki/oit_webots_tests.git
 $ sudo apt install ros-melodic-rosbridge-suite
 ```
 
-## 起動(WebSocket)
+## 起動(roslibpy + WebSocket)
 
 - WSL側で以下を実行する。
 
@@ -51,18 +51,20 @@ $ roslaunch ./simple.launch protocol:=ws
 
 ![2021-01-18_133745.png](./images/2021-01-18_133745.png)
 
-- Webotsを起動し、クローンしたワールドファイル`oit_webots\worlds\test_01_ros_ws.wbt`を`File`->`Open World`から開く。
+- Webotsを起動し、クローンしたワールドファイル`oit_webots\worlds\test_01_roslib.wbt`を`File`->`Open World`から開く。
 - この段階でRViz上に`base_link`という座標軸（ロボットのホイールオドメトリによる自己位置）が出現し、`mouse_teleop`でロボットを操作できる。
     - Webots上のロボットも動く。
 
 ![2021-01-18_134016.png](./images/2021-01-18_134016.png)
 
-- ソフトを一旦終了しWSL側で以下を実行する。その後上記同様にWebotsの`oit_webots\worlds\test_01_ros_ws.wbt`を開いて実行する。ROS側でマウステレオペをすると地図作成ができる。
+- ソフトを一旦終了しWSL側で以下を実行する。その後上記同様にWebotsの`oit_webots\worlds\test_01_roslib.wbt`を開いて実行する。ROS側でマウステレオペをすると地図作成ができる。
 
 ```shell
 $ roscd oit_webots_tests/launch
 $ roslaunch ./mapping.launch protocol:=ws
 ```
+
+`roslibpy`をクライアント（この場合はWebotsのコントローラ）側で使用した場合、遅延が激しい。
 
 ## 起動(UDP)
 
@@ -73,13 +75,33 @@ $ roscd oit_webots_tests/launch
 $ roslaunch ./simple.launch protocol:=udp
 ```
 
-- Webotsを起動し、クローンしたワールドファイル`oit_webots\worlds\test_02_ros_udp.wbt`を`File`->`Open World`から開く。
+- Webotsを起動し、クローンしたワールドファイル`oit_webots\worlds\test_03_ros_udp.wbt`を`File`->`Open World`から開く。
 - この段階でRViz上に`base_link`という座標軸（ロボットのホイールオドメトリによる自己位置）が出現し、`mouse_teleop`でロボットを操作できる。
     - Webots上のロボットも動く。
 
-- ソフトを一旦終了しWSL側で以下を実行する。その後上記同様にWebotsの`oit_webots\worlds\test_02_ros_udp.wbt`を開いて実行する。ROS側でマウステレオペをすると地図作成ができる。
+- ソフトを一旦終了しWSL側で以下を実行する。その後上記同様にWebotsの`oit_webots\worlds\test_03_ros_udp.wbt`を開いて実行する。ROS側でマウステレオペをすると地図作成ができる。
 
 ```shell
 $ roscd oit_webots_tests/launch
 $ roslaunch ./mapping.launch protocol:=udp
+```
+
+## 起動(TCP + SIGVerse bridge)
+
+- WSL側で以下を実行する。
+
+```shell
+$ roscd oit_webots_tests/launch
+$ roslaunch ./simple.launch protocol:=tcp
+```
+
+- Webotsを起動し、クローンしたワールドファイル`oit_webots\worlds\test_02_ros_tcp_sigverse.wbt`を`File`->`Open World`から開く。
+- この段階でRViz上に`base_link`という座標軸（ロボットのホイールオドメトリによる自己位置）が出現し、`mouse_teleop`でロボットを操作できる。
+    - Webots上のロボットも動く。
+
+- ソフトを一旦終了しWSL側で以下を実行する。その後上記同様にWebotsの`oit_webots\worlds\test_02_ros_tcp_sigverse.wbt`を開いて実行する。ROS側でマウステレオペをすると地図作成ができる。
+
+```shell
+$ roscd oit_webots_tests/launch
+$ roslaunch ./mapping.launch protocol:=tcp
 ```

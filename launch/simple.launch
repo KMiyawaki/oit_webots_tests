@@ -9,7 +9,7 @@
   <arg name="frame_id" default="odom" />
   <arg name="child_frame_id" default="base_link" />
   <arg name="use_mouse" default="true" />
-  <arg name="protocol" default="ws" />
+  <arg name="protocol" default="tcp" />
   <arg name="sigverse_ros_bridge_port" default="50001" />
   <!-- udp -->
 
@@ -19,18 +19,15 @@
     <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" />
   </group>
 
-  <group ns="sigverse_ros_bridge">
-    <node name="sigverse_ros_bridge" pkg="sigverse_ros_bridge" type="sigverse_ros_bridge" args="$(arg sigverse_ros_bridge_port)" output="screen"/>
-  </group>
-
   <group if="$(eval protocol == 'udp')">
     <include file="$(find rosbridge_server)/launch/rosbridge_udp.launch" />
   </group>
 
   <group if="$(eval protocol == 'tcp')">
-    <include file="$(find rosbridge_server)/launch/rosbridge_tcp.launch">
-      <arg name="bson_only_mode" value="true" />
-    </include>
+    <include file="$(find rosbridge_server)/launch/rosbridge_tcp.launch" />
+    <group ns="sigverse_ros_bridge">
+      <node name="sigverse_ros_bridge" pkg="sigverse_ros_bridge" type="sigverse_ros_bridge" args="$(arg sigverse_ros_bridge_port)" output="screen"/>
+    </group>
   </group>
 
   <group if="$(arg use_mouse)">
