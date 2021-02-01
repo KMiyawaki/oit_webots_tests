@@ -26,8 +26,8 @@
  <xacro:property name="laser_d" value="0.06" />
   <xacro:property name="laser_w" value="0.06" />
   <xacro:property name="laser_h" value="0.06" />
-  <xacro:property name="laser_x" value="-0.0475" />
-  <xacro:property name="laser_z" value="${body_h}" />
+  <xacro:property name="laser_x" value="0.17" />
+  <xacro:property name="laser_z" value="0.1075" />
 
   <joint name="laser_joint" type="fixed">
     <origin xyz="${laser_x} 0 ${laser_z}" rpy="0 0 0"/>
